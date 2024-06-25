@@ -1,8 +1,11 @@
+import { LoginForm } from '@/components/auth/login-form'
 import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
+    // We will be returining Login Form component 
+    <LoginForm />
+    // components/auth
   )
 }
 
