@@ -1,27 +1,21 @@
-int searchInsert(vector<int>& arr, int m)
-{
-    int lo = 0;
-    int hi = arr.size() - 1;
-    int ans = -1;
+#include<bits/stdc++.h>
+using namespace std;
 
-    while (lo <= hi){
-        int mid = lo + (hi - lo) / 2;
-        // Check if element is present.
-        if (arr[mid] == m){
-            return mid;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int x1,x2,x3;
+        cin>>x1>>x2>>x3;
+        int a;
+        int minDis=INT_MAX;
+        for(int i=1;i<=10;i++){
+            int diff1 = abs(i-x1);
+            int diff2 = abs(i-x2);
+            int diff3 = abs(i-x3);
+            int sum = diff1+diff2+diff3;
+            minDis=min(minDis,sum);
         }
-        // Check in left half.
-        if (arr[mid] > m){
-            hi = mid - 1;
-            ans = mid;
-        }
-        // Check in right half.
-        else{
-            lo = mid + 1;
-        }
+        cout<<minDis<<endl;
     }
-    if (ans == -1){
-        ans = arr.size();
-    }
-    return ans;
 }
