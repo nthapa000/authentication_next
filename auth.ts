@@ -10,12 +10,25 @@ import authConfig from "./auth.config";
 
 // we have to add GET and POST inside the api for the next auth
 // auth to get the current session of the user if any 
+// signIN etc can be used only in server action
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
   signOut
 } = NextAuth({
+  pages:{
+    signIn:"/auth/login",
+    error:"/auth/error"
+  },
+  events:{
+   async linkAccount({user}){
+      await db.user.update({
+        where: {id:user.id},
+        data: {emailVerified:new Date()}
+      })
+    }
+  },
   // how we can transfer id from token to the session
     callbacks:{
       // async signIn({user}){

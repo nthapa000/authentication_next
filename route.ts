@@ -18,6 +18,7 @@ export const publicRoutes = [
 export const authRoutes = [
     "/auth/login",
     "/auth/register",
+    "/auth/error"
 ];
 
 // this route should be always allowed for user to login /signup

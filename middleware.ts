@@ -9,7 +9,7 @@ import {
 } from "@/route";
 
 const { auth } = NextAuth(authConfig);
-
+//@ts-ignore
 export default auth((req) => {
   // runs in everyroute
 
