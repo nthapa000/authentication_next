@@ -31,6 +31,21 @@ export const {
   },
   // how we can transfer id from token to the session
     callbacks:{
+      async signIn({user,account}){
+        // Allow OAuth without email verifications
+
+        if(account?.provider !== "credentials") return true;
+
+        const existingUser = await getUserById(user.id);
+
+        // Prevent sign in without email verification
+        if(!existingUser?.emailVerified) return false;
+
+        // TODO add 2FA check
+
+        return true;
+        // allowing to sign in
+      },
       // async signIn({user}){
       //   const existingUser = await getUserById(user.id);
 

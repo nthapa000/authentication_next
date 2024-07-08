@@ -45,3 +45,13 @@ model Account {
 //  unque rule for the combination of the provider and the provideAccount
   @@unique([provider, providerAccountId])
 }
+
+model VerificationToken {
+  id String @id @default(cuid())
+  email String
+  token String @unique
+  expires DateTime
+
+  // Only one unique token for a email
+  @@unique([email,token])
+}

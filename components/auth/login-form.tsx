@@ -53,7 +53,7 @@ export const LoginForm = () => {
           setError(data?.error);
           // Add when we add 2FA
           // 2 factor code has been sent
-          // setSuccess(data.success);
+          setSuccess(data?.success);
         })
     })
     // if we didn't want to do the server action then we could do in such a way 
