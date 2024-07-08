@@ -20,7 +20,8 @@ export const authRoutes = [
     "/auth/login",
     "/auth/register",
     "/auth/error",
-    "/auth/reset"
+    "/auth/reset",
+    "/auth/new-password"
 ];
 
 // this route should be always allowed for user to login /signup
