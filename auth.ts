@@ -6,6 +6,7 @@ import { getUserById } from "./data/user";
 // we can also use the getUserByEmail but it will be an expensive query and since the id is primary key , searching will be fast
 import { db } from "./lib/db";
 import authConfig from "./auth.config";
+import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 
 
 // we have to add GET and POST inside the api for the next auth
@@ -39,13 +40,33 @@ export const {
         })
 
         if(account?.provider !== "credentials") return true;
-
+        // @ts-ignore
         const existingUser = await getUserById(user.id);
 
         // Prevent sign in without email verification
         if(!existingUser?.emailVerified) return false;
 
         // TODO add 2FA check
+      //  This is not usefull since how will be know that the user has verified
+        // if(existingUser.isTwoFactorEnabled) {
+        //   return false;
+        // }
+        if(existingUser.isTwoFactorEnabled){
+          const twoFactorConfirmation =await getTwoFactorConfirmationByUserId(existingUser.id);
+
+          // console.log({
+          //   twoFactorConfirmation
+          // })
+
+          if(!twoFactorConfirmation) return false;
+
+          // Delete two factor confirmation for next sign in 
+          //  so that next time they have to login they have to go through that again, we can also add expires 
+          await db.twoFactorConfirmation.delete({
+            // @ts-ignore
+            where:{id:twoFactorConfirmation.id}
+          });
+        }
 
         return true;
         // allowing to sign in
