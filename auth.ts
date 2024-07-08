@@ -33,6 +33,10 @@ export const {
     callbacks:{
       async signIn({user,account}){
         // Allow OAuth without email verifications
+        console.log({
+          user,
+          account
+        })
 
         if(account?.provider !== "credentials") return true;
 
