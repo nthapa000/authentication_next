@@ -1,19 +1,23 @@
-import { auth, signOut } from "@/auth"
+"use client";
 
-const SettingsPage = async () => {
-  const session = await auth();
+import { logout } from "@/actions/logout";
+import { useCurrentUser } from "@/hooks/use-current-user";
+
+const SettingsPage = () => {
+  // it need to be wrapepd in session provide
+  const user = useCurrentUser();
+
+  const onClick = () =>{
+    logout()
+  }
 
   return (
-    <div>
-        {JSON.stringify(session)}
-        <form action={async()=>{
-          "use server";
-          await signOut();
-        }}>
-          <button type="submit">
+    <div className="bg-white p-10 rounded-xl">
+      {/* to access user we need to do this everytime hence we will create a reusable hooks
+        {JSON.stringify(user)} */}
+          <button onClick={onClick} type="submit">
             Sign out
           </button>
-        </form>
     </div>
   )
 }
